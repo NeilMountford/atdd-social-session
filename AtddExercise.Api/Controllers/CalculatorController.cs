@@ -12,5 +12,11 @@ namespace AtddExercise.Api.Controllers
         {
             return Ok(numbers.Split(",").Select(int.Parse).Sum());
         }
+        
+        [HttpGet("add")]
+        public IActionResult Add()
+        {
+            return BadRequest();
+        }
     }
 }
