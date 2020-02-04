@@ -8,21 +8,21 @@ using TestStack.BDDfy;
 using TestStack.BDDfy.Xunit;
 using Xunit;
 
-namespace AtddExercise.UnitTests.Bddfy
+namespace AtddExercise.UnitTests.BddfyReflective
 {
-    public class AddTestsConvention : IClassFixture<WebApplicationFactory<Startup>>
+    public class TwoValidNumbers : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
         private string _numbers;
         private HttpResponseMessage _response;
 
-        public AddTestsConvention(WebApplicationFactory<Startup> factory)
+        public TwoValidNumbers(WebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
         
         [BddfyFact]
-        public void Two_Valid_Numbers_Returns_Success_With_Correct_Result()
+        public void TwoValidNumbersReturnsSuccessWithCorrectResult()
         {
             this.BDDfy();
         }

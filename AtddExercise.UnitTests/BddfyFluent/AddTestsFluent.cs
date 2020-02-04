@@ -8,21 +8,21 @@ using TestStack.BDDfy;
 using TestStack.BDDfy.Xunit;
 using Xunit;
 
-namespace AtddExercise.UnitTests.Bddfy
+namespace AtddExercise.UnitTests.BddfyFluent
 {
-    public class AddTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class AddTestsFluent : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
         private string _numbers;
         private HttpResponseMessage _response;
 
-        public AddTests(WebApplicationFactory<Startup> factory)
+        public AddTestsFluent(WebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
         
         [BddfyFact]
-        public void Two_Valid_Numbers_Returns_Success_With_Correct_Result()
+        public void TwoValidNumbersReturnsSuccessWithCorrectResult()
         {
             this.Given(_ => _.TwoValidNumbers())
                 .When(_ => _.AddingNumbers())
@@ -30,10 +30,24 @@ namespace AtddExercise.UnitTests.Bddfy
                 .And(_ => _.TheExpectedResultIsReturned())
                 .BDDfy();
         }
+        
+        [BddfyFact]
+        public void NoNumbersReturnsFailure()
+        {
+            this.Given(_ => _.NoNumbers())
+                .When(_ => _.AddingNumbers())
+                .Then(_ => TheResponseIndicatesFailure())
+                .BDDfy();
+        }
 
         private void TwoValidNumbers()
         {
             _numbers = "3,2";
+        }
+
+        private void NoNumbers()
+        {
+            _numbers = "";
         }
 
         private async Task AddingNumbers()
@@ -44,6 +58,11 @@ namespace AtddExercise.UnitTests.Bddfy
         private void TheResponseIndicatesSuccess()
         {
             _response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+
+        private void TheResponseIndicatesFailure()
+        {
+            _response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         }
 
         private async Task TheExpectedResultIsReturned()
