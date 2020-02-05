@@ -10,13 +10,13 @@ using Xunit;
 
 namespace AtddExercise.UnitTests.BddfyReflective
 {
-    public class TwoValidNumbers : IClassFixture<WebApplicationFactory<Startup>>
+    public class TwoValidNumbers : IClassFixture<MockingWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
         private string _numbers;
         private HttpResponseMessage _response;
 
-        public TwoValidNumbers(WebApplicationFactory<Startup> factory)
+        public TwoValidNumbers(MockingWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }

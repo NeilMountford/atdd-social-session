@@ -8,11 +8,11 @@ using Xunit;
 
 namespace AtddExercise.UnitTests.YaBasic
 {
-    public class AddTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class AddTests : IClassFixture<MockingWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
-        public AddTests(WebApplicationFactory<Startup> factory)
+        public AddTests(MockingWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }

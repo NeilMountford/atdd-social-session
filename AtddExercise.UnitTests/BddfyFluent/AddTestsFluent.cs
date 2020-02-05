@@ -1,11 +1,7 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AtddExercise.Api;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Shouldly;
 using TestStack.BDDfy;
@@ -40,6 +36,7 @@ namespace AtddExercise.UnitTests.BddfyFluent
         [BddfyFact]
         public void TwoValidNumbersAreSavedWithTheResult()
         {
+            _factory.DataAccessMock.Invocations.Clear();
             this.Given(_ => _.TwoValidNumbers())
                 .When(_ => _.AddingNumbers())
                 .Then(_ => TheNumbersAndResultAreSaved())
@@ -93,26 +90,6 @@ namespace AtddExercise.UnitTests.BddfyFluent
         {
             var body = await _response.Content.ReadAsStringAsync();
             body.ShouldBe("5");
-        }
-    }
-
-    public class MockingWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
-    {
-        public Mock<IDataAccess> DataAccessMock { get; private set; }
-        
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
-        {
-            builder.ConfigureServices(services =>
-            {
-                var searchDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IDataAccess));
-                if (searchDescriptor != null)
-                {
-                    services.Remove(searchDescriptor);
-                }
-
-                DataAccessMock = new Mock<IDataAccess>();
-                services.AddSingleton(DataAccessMock.Object);
-            });
         }
     }
 }

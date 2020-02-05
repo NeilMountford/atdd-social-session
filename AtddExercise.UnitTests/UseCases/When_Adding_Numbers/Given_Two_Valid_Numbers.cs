@@ -8,12 +8,12 @@ using Xunit;
 
 namespace AtddExercise.UnitTests.When_Adding_Numbers
 {
-    public class Given_Two_Valid_Numbers : IAsyncLifetime, IClassFixture<WebApplicationFactory<Startup>>
+    public class Given_Two_Valid_Numbers : IAsyncLifetime, IClassFixture<MockingWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
         private HttpResponseMessage _response;
 
-        public Given_Two_Valid_Numbers(WebApplicationFactory<Startup> factory)
+        public Given_Two_Valid_Numbers(MockingWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
