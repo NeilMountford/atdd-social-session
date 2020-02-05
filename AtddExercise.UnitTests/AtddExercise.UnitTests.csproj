@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+        <PackageReference Include="Moq" Version="4.13.1" />
         <PackageReference Include="Shouldly" Version="3.0.2" />
         <PackageReference Include="TestStack.BDDfy" Version="4.3.2" />
         <PackageReference Include="TestStack.BDDfy.Xunit" Version="1.0.0" />
